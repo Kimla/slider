@@ -27,10 +27,12 @@ var Slider = (function () {
         },
 
         bindUIActions: function() {
-            window.onresize = function(event) {
-                Slider.setWidths();
-                Slider.setTranslate3dValue();
-            };
+            if ( s.animation === "slider" ) {
+                window.onresize = function(event) {
+                    Slider.setWidths();
+                    Slider.setTranslate3dValue();
+                };
+            }
         },
 
         startSlider: function() {
