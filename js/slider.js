@@ -7,7 +7,7 @@ var Slider = (function () {
         settings: {
             sliderElement: "",
             sliderContainer: false,
-            animation: 'fade',
+            animation: 'slide',
             slides: false,
             currentSlide: 0,
             delay: 3000,
@@ -27,12 +27,12 @@ var Slider = (function () {
         },
 
         bindUIActions: function() {
-            if ( s.animation === "slider" ) {
-                window.onresize = function(event) {
-                    Slider.setWidths();
+            window.onresize = function(event) {
+                Slider.setWidths();
+                if ( s.animation === "slide" ) {
                     Slider.setTranslate3dValue();
-                };
-            }
+                }
+            };
         },
 
         startSlider: function() {
