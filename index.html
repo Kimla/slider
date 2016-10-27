@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Slider</title>
+    </head>
+    <body>
+
+        <div id="create-slider" class="create-slider">
+            <p>Animation</p>
+            <select id="animation">
+                <option value="fade">fade</option>
+                <option value="slide">slide</option>
+            </select>
+            <p>Slider delay in ms</p>
+            <input type="text" id="delay" name="delay" value="3000">
+            <button type="button" name="button" onclick="initSlider()" id="start">GO!</button>
+        </div>
+
+        <div id="slider">
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+        </div>
+
+        <link rel="stylesheet" href="style.css" media="screen" title="no title">
+        <script src="js/slider.js" charset="utf-8"></script>
+        <script src="js/app.js" charset="utf-8"></script>
+    </body>
+</html>
