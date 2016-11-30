@@ -20,16 +20,9 @@ var Slider = (function () {
                 this.startSlider();
                 this.bindUIActions();
             }
-
         },
 
         bindUIActions: function() {
-            window.onresize = function(event) {
-                Slider.setWidths();
-                if ( s.animation === "slide" ) {
-                    Slider.setTranslate3dValue();
-                }
-            };
             this.setButtons();
         },
 
@@ -39,40 +32,39 @@ var Slider = (function () {
             this.startTimer();
         },
 
-        nextSlide: function() {
+        changeSlide: function(direction) {
             Slider.stopTimer();
             Slider.startTimer();
-            var currentSlide = s.currentSlide;
             s.slides[s.currentSlide].classList.remove("slide__is-active");
             s.slides[s.currentSlide].classList.add("animate-out");
-            s.currentSlide++;
 
-            if ( s.currentSlide >= s.slides.length ) {
-                s.currentSlide = 0;
+            if ( direction === "next" ) {
+                Slider.nextSlide();
+            }
+            else if ( direction === "prev" ) {
+                Slider.prevSlide();
             }
 
             s.slides[s.currentSlide].classList.add("slide__is-active");
+            var currentSlide = s.currentSlide;
+
             setTimeout(function () {
                 s.slides[currentSlide].classList.remove("animate-out");
             }, 350);
         },
 
-        prevSlide: function() {
-            Slider.stopTimer();
-            Slider.startTimer();
-            var currentSlide = s.currentSlide;
-            s.slides[s.currentSlide].classList.remove("slide__is-active");
-            s.slides[s.currentSlide].classList.add("animate-out");
-            s.currentSlide--;
+        nextSlide: function() {
+            s.currentSlide++;
+            if ( s.currentSlide >= s.slides.length ) {
+                s.currentSlide = 0;
+            }
+        },
 
+        prevSlide: function() {
+            s.currentSlide--;
             if ( s.currentSlide < 0 ) {
                 s.currentSlide = s.slides.length - 1;
             }
-
-            s.slides[s.currentSlide].classList.add("slide__is-active");
-            setTimeout(function () {
-                s.slides[currentSlide].classList.remove("animate-out");
-            }, 350);
         },
 
         startTimer: function() {
@@ -108,17 +100,12 @@ var Slider = (function () {
             var nextButtons = s.sliderElement.querySelectorAll(".next-slide");
 
             for (var i = 0; i < prevButtons.length; i++) {
-                prevButtons[i].addEventListener("click", this.prevSlide, false);
-                nextButtons[i].addEventListener("click", this.nextSlide, false);
-            }
-        },
-
-        setWidths: function() {
-            var slideWidth = s.sliderElement.offsetWidth;
-            var containerWidth = s.slides.length * slideWidth;
-            s.sliderContainer.style.width = containerWidth + "px";
-            for (var i = 0; i < s.slides.length; i++) {
-                s.slides[i].style.width = slideWidth + "px";
+                prevButtons[i].addEventListener("click", function(){
+                    Slider.changeSlide("prev");
+                }, false);
+                nextButtons[i].addEventListener("click", function(){
+                    Slider.changeSlide("next");
+                }, false);
             }
         },
 
