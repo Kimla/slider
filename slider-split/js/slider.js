@@ -89,7 +89,6 @@ var Slider = (function () {
             if ( this.setTargetElement() ) {
                 this.createContainer();
                 this.setSlides();
-                this.setWidths();
                 return true;
             }
             return false;
